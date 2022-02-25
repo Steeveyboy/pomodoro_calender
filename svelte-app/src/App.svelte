@@ -1,10 +1,12 @@
 <script>
+	import {
+		HomePage
+	} from './pages';
 	export let name;
 </script>
 
 <main>
-	<h1>{name}!</h1>
-	<!-- <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p> -->
+	<HomePage />
 </main>
 
 <style>
