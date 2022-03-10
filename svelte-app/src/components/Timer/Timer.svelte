@@ -1,6 +1,7 @@
 
 <script>
     import { run } from "svelte/internal";
+
     let running = false;
 
     function setRunning() {
@@ -20,7 +21,6 @@
       
 </script>
 
-
 <div class="timer-container">
     <h1 id="countdown">25:00</h1>
     <button on:click={setRunning}>start timer</button>
@@ -28,13 +28,14 @@
 
 <style type="text/css">
     .timer-container {
-        /* min-height: 20rem; */
         max-width: 40rem;
         padding: 2rem;
-        border-radius: 5px;
         margin: auto;
         vertical-align: middle;
-        background-color: rgba(255, 30, 0, 0.781);
+        background-color: #f34b48e0;
+        border-radius: 7px;
+        border-style: solid;
+        border-width: 1px;
     }
     .timer-container h1 {
         color: rgb(243, 243, 222);
@@ -42,9 +43,16 @@
         margin: 1rem;
         /* font-family:'Courier New'; */
     }
+
     .timer-container button {
-        /* color: black; */
+        border-radius: 5px;
+        font-size: x-large;
+        font-weight: bold;
+        color: rgba(255, 30, 0, 0.705);
+        background-color:rgb(243, 243, 222);
+        cursor: pointer;
     }
+
 </style>
 
 

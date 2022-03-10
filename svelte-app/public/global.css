@@ -4,7 +4,10 @@ html, body {
 	height: 100%;
 }
 
+/* Using this palette: https://colorhunt.co/palette/ff5c58fe8f8ffcd2d1ffedd3 */
+
 body {
+	background-color: #ff5b58c5;
 	color: #333;
 	margin: 0;
 	padding: 8px;
