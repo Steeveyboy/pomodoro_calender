@@ -22,7 +22,6 @@
 <div class="task-container">
     <div class="tasks">
         {#each tasks as taskDetails}
-            <!-- <h1>{taskDetails}</h1> -->
             <Task text={taskDetails}/>
         {/each}
     </div>
