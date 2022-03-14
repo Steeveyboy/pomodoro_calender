@@ -1,10 +1,40 @@
 
 <script>
     export let text;
-    console.log("being Created ");
+    let task;
+    let descBox;
+    let descBoxHeight = "0rem";
+    // export let periodsComplete = text.periodsComplete;
+
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
+
+    const viewDescription = event => {
+        if(descBoxHeight == "0rem"){
+            descBoxHeight = (descBox.children[0].offsetHeight*0.06 + 1 + "rem");
+            // descBox.children[0].style.border = "1px dotted";
+        }
+        else{
+            descBoxHeight = "0rem";
+            // descBox.children[0].style.border = "0px none";    
+        }
+    };
+
+    const selectTask = event => {
+        // let sendOff = {text: inputText.value, periods: tomatos, description:description.value, dueDate: duedate};
+        console.log("egg");
+        // periodsComplete += 1;
+        // text.periodsComplete +=1;
+        dispatch("select", {props: text, component: task});
+    };
+
+    const mouseLeave = event => {
+        descBoxHeight = "0rem";
+    };
+
 </script>
 
-<div class="task">
+<div class="task" on:mouseleave={mouseLeave} bind:this={task} on:click={selectTask}>
     <div class="headings">
         <div class="taskText">
             <h3 class="taskText">{text.name}</h3>
@@ -14,12 +44,31 @@
         </div>
     </div>
     <div class="hiddenDetails">
-        <a>Description</a>
+        <a id="taskDesc" on:click={viewDescription}>Description</a>
         <a>Deadline</a>
+    </div>
+    <div class="description" bind:this={descBox} style="--box-height: {descBoxHeight};">
+        <article>
+            {text.description}
+        </article>
     </div>
 </div>
 
 <style>
+    
+    article {
+        border-radius: 7px;
+        background-color: rgb(223 195 194 / 50%);
+        padding: 3px;
+    }
+    .description {
+        width: 90%;
+        align-self: center;
+        margin: auto;
+        height: var(--box-height);
+        transition: height 0.15s linear; 
+    }
+
 
     .headings {
         display: flex;
@@ -32,43 +81,33 @@
     }
 
     .task {
-        /* justify-content: center; */
-        /* display: flex; */
         max-width: 44rem;
         width: 100%;
         background-color: rgb(243, 243, 222);
         border-radius: 7px;
         margin: auto;
-        margin-top: 0.5rem;
+        overflow: hidden;
         cursor: pointer;
-        height: 4rem;
-        transition: height 0.3s;
-    }
-
-    .task:hover {
-        border: 2px solid;
-        height: 6rem;
+        height: fit-content;
+        margin-top: 0.5rem;
     }
 
     .hiddenDetails {
-        /* display: none; */
+        height: 0rem;
         visibility: hidden;
         width: 100%;
         padding-bottom: 2px;
-        justify-content: space-evenly;    
-        display: flex;
+        justify-content: space-evenly;
         opacity: 0;
-        transition: opacity 0.2s 0.1s linear;
+        transition: opacity 0.2s 0.1s linear, height 0.25s linear;
     }
 
 
     .task:hover .hiddenDetails{
-        /* transform: scaleY(0); */
-        
-        height: 2rem;
-        opacity: 100%;
         visibility: visible;
-        position: relative;
+        opacity: 100%;
+        height: 2rem;
+        display: flex;
     }
 
     .tomatos{

@@ -1,20 +1,35 @@
 
 <script>
     import { run } from "svelte/internal";
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
 
     let running = false;
+    let duration = 3;
+    let timer = duration;
+    let stringTime;
 
     function setRunning() {
         running = !running;
     }
-    
+
+    function timeToString() {
+        var seconds = timer%60;
+        var minutes = Math.floor(timer/60);
+        stringTime = (("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2));
+    }
+
+    timeToString()
+
     setInterval(function (){
         if(running){
-            var time = document.getElementById("countdown").innerHTML;
-            var minutes = parseInt(time.slice(0,time.indexOf(":")));
-            var seconds = parseInt(time.slice(time.indexOf(":")+1));
-            var remainder = minutes*60 + seconds - 1;
-            document.getElementById("countdown").innerHTML = ("0"+Math.floor(remainder/60)).slice(-2) + ":" + ("0" + remainder%60).slice(-2);
+            timer -= 1;
+            if(timer == 0){
+                running = false;
+                dispatch("timerDone");
+                timer = duration;
+            }
+            timeToString();
         }
     }, 1000);
     
@@ -22,7 +37,7 @@
 </script>
 
 <div class="timer-container">
-    <h1 id="countdown">25:00</h1>
+    <h1 id="countdown">{stringTime}</h1>
     <button on:click={setRunning}>start timer</button>
 </div>
 

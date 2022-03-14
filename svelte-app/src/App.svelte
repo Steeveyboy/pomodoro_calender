@@ -2,7 +2,7 @@
 	import {
 		HomePage
 	} from './pages';
-	export let name;
+	// export let name;
 </script>
 
 <main>
