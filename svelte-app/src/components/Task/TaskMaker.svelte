@@ -43,12 +43,13 @@
     };
 
     const submitTask = event => {
-        console.log(event.key);
+        // console.log(event.key);
         if(event.key == 'Enter'){
             let inputText = document.getElementById("inputText");
+            console.log(inputText.value);
             let description = document.getElementsByTagName("textArea")[0];
             let duedate = new Date(2022,3,14,23,56);
-            let sendOff = {id: text.id, text: inputText.value, periods: tomatos, description:description.value, dueDate: duedate};
+            let sendOff = {text: inputText.value, periods: tomatos, description:description.value, dueDate: duedate};
             dispatch("change", sendOff);
             inputText.value = "";
             tomatos = 0;
@@ -70,20 +71,20 @@
 <div class="task taskMaker" on:mouseleave={mouseLeave}>
     <div class="headings">
         <div class="taskText">
-            <input type="text" id="inputText" class="inputText" placeholder="Make Task" on:keypress={submitTask} on:focus={showDetails} on:blur={showDetails}>
+            <input type="text" id="inputText" class="inputText" placeholder="Add New Task Here" on:keypress={submitTask} on:focus={showDetails} on:blur={showDetails}>
         </div>
         <div class="tomatos">
             <p>{tomatos}</p>
             <img src="timer.png" alt="" style="width:1.5rem; display:inline-block; margin-top:10px;"> 
         </div>
         <div class="durationButtons">
-            <button on:click={increment}>Up</button>
-            <button on:click={decrement}>Dn</button>
+            <button on:click={increment}><i style='font-size:15px' class='fas'>&#xf0d8;</i></button>
+            <button on:click={decrement}><i style='font-size:15px' class='fas'>&#xf0d7;</i></button>
         </div>
     </div>
     <div class="hiddenDetails" >
-        <a on:click={viewDescription}>Description</a>
-        <a on:click={viewDate}>Deadline</a>
+        <a id="taskDesc" on:click={viewDescription}>Add Description</a>
+        <a id="taskDeadline" on:click={viewDate}>Deadline</a>
     </div>
     <div class="description" bind:this={descBox} style="--box-height: {descBoxHeight};">
         <textarea placeholder="Write Here.."></textarea>
@@ -93,13 +94,10 @@
 <style>
 
     textarea {
-        /* visibility: collapse; */
         width: 90%;
         height: 90%;
-        /* overflow-x: scroll; */
         resize: none;
-        
-        /* height: var(--box-height); */
+        border-radius: 7px;
     }
 
     .description {
@@ -152,6 +150,7 @@
         color: #333;
         font-size: 1.17rem;
         font-weight: bold;
+        opacity: 80%;
     }
 
     .taskMaker {

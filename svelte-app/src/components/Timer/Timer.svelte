@@ -5,12 +5,27 @@
     const dispatch = createEventDispatcher();
 
     let running = false;
-    let duration = 3;
+    let duration = 1200;
     let timer = duration;
     let stringTime;
 
     function setRunning() {
         running = !running;
+        if(running){
+            document.querySelector(".timerButtons > button:nth-child(1)").innerHTML = "pause timer";
+            document.querySelector(".timerButtons > button:nth-child(2)").hidden = false;
+        }
+        else{
+            document.querySelector(".timerButtons > button:nth-child(1)").innerHTML = "start timer";
+            document.querySelector(".timerButtons > button:nth-child(2)").hidden = true;
+        }
+    }
+
+    function skipTimer() {
+        setRunning();
+        dispatch("timerDone");
+        timer = duration;
+        timeToString();
     }
 
     function timeToString() {
@@ -38,7 +53,11 @@
 
 <div class="timer-container">
     <h1 id="countdown">{stringTime}</h1>
-    <button on:click={setRunning}>start timer</button>
+    <div class="timerButtons">
+        <button on:click={setRunning}>start timer</button>
+        <button on:click={skipTimer} hidden=true>skip</button>
+    </div>
+    
 </div>
 
 <style type="text/css">

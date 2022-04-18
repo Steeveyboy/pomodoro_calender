@@ -2,6 +2,8 @@
     import {Timer} from '../components/Timer';
     import {Task, TaskMaker } from '../components/Task';
     import {TaskContainer} from '../components/TaskContainer';
+    import {Navbar} from '../components/Navbar';
+
 
 	let taskContainer;
 
@@ -15,17 +17,14 @@
 		taskContainer.testIt()
 	}
 
-
 </script>
 
 <div class="home-page">
+    <Navbar />
     <h1>{headerMessage}</h1>
     <!-- <iframe title="calendar" src="https://calendar.google.com/calendar/embed?height=300&wkst=1&bgcolor=%23ffffff&ctz=America%2FToronto&showTz=0&showCalendars=0&showTabs=1&showPrint=0&showDate=1&showNav=1&showTitle=0&src=am9uYXRoYW4ucXN0ZWV2ZXNAZ21haWwuY29t&color=%23039BE5" style="border-width:0" width="500" height="300" frameborder="0" scrolling="no"></iframe> -->
-
     <Timer on:timerDone={timerDone}/>
     <TaskContainer bind:this={taskContainer} on:select={selectedTask}/>
-    <h1>DONE</h1>
-
 </div>
 
 <style type="text/css">

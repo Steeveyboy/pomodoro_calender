@@ -11,8 +11,9 @@
 
     const viewDescription = event => {
         if(descBoxHeight == "0rem"){
+            descBox.children[0].hidden=false;
+            descBox.children[1].hidden=true;
             descBoxHeight = (descBox.children[0].offsetHeight*0.06 + 1 + "rem");
-            // descBox.children[0].style.border = "1px dotted";
         }
         else{
             descBoxHeight = "0rem";
@@ -22,10 +23,25 @@
 
     const selectTask = event => {
         // let sendOff = {text: inputText.value, periods: tomatos, description:description.value, dueDate: duedate};
-        console.log("egg");
+        // console.log("egg");
         // periodsComplete += 1;
         // text.periodsComplete +=1;
         dispatch("select", {props: text, component: task});
+    };
+
+    const editDescription = event => {
+        let txt = descBox.innerText;
+        descBox.children[0].hidden = true;
+        descBox.children[1].hidden = false;
+        descBox.children[1].innerText = txt;
+        console.log(descBox.children[1]);
+    };
+
+    const submitEdits = event => {
+        descBox.children[0].innerText = descBox.children[1].value;
+        descBox.children[1].hidden = true;
+        descBox.children[0].hidden = false;
+        dispatch("update");
     };
 
     const mouseLeave = event => {
@@ -45,12 +61,13 @@
     </div>
     <div class="hiddenDetails">
         <a id="taskDesc" on:click={viewDescription}>Description</a>
-        <a>Deadline</a>
+        <a id="taskDead">Deadline</a>
     </div>
     <div class="description" bind:this={descBox} style="--box-height: {descBoxHeight};">
-        <article>
+        <article on:dblclick={editDescription} id="descriptionBox">
             {text.description}
         </article>
+        <textarea hidden=true on:blur={submitEdits}></textarea>
     </div>
 </div>
 
@@ -63,12 +80,20 @@
     }
     .description {
         width: 90%;
+        height: 90%;
         align-self: center;
         margin: auto;
         height: var(--box-height);
         transition: height 0.15s linear; 
     }
 
+    textarea {
+        width: 100%;
+        height: 90%;
+        resize: none;
+        overflow: hidden;
+        border-radius: 7px;
+    }
 
     .headings {
         display: flex;
@@ -99,7 +124,7 @@
         padding-bottom: 2px;
         justify-content: space-evenly;
         opacity: 0;
-        transition: opacity 0.2s 0.1s linear, height 0.25s linear;
+        transition: opacity 0.1s 0.1s linear, height 0.15s linear;
     }
 
 

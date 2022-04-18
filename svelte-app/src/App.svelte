@@ -2,6 +2,7 @@
 	import {
 		HomePage
 	} from './pages';
+	import Navbar from './components/Navbar/Navbar.svelte';
 	// export let name;
 </script>
 
